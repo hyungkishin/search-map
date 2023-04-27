@@ -17,7 +17,6 @@ spring:
       on-profile: common
 
 # ...
-
 ---
 spring:
   config:
