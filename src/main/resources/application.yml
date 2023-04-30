@@ -16,6 +16,11 @@ spring:
     activate:
       on-profile: common
 
+kakao:
+  rest:
+    api:
+      key: ${KAKAO-REST-API-KEY}
+
 # ...
 
 ---
