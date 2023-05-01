@@ -15,7 +15,7 @@ import java.net.URI;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KakaoAddressSearch {
+public class KakaoAddressSearchService {
 
     private final RestTemplate restTemplate;
 
