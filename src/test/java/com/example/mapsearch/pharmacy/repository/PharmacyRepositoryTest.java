@@ -1,9 +1,11 @@
-package com.example.mapsearch.pharmacy.repository
+package com.example.mapsearch.pharmacy.repository;
 
-import com.example.mapsearch.AbstractIntegrationContainerBaseTest
-import com.example.mapsearch.pharmacy.entity.Pharmacy
-import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
+import com.example.mapsearch.AbstractIntegrationContainerBaseTest;
+import com.example.mapsearch.pharmacy.entity.Pharmacy;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class PharmacyRepositoryTest extends AbstractIntegrationContainerBaseTest {
 
@@ -25,9 +27,7 @@ class PharmacyRepositoryTest extends AbstractIntegrationContainerBaseTest {
 
         // Then
         Pharmacy savedPharmacy = pharmacyRepository.findById(pharmacy.getId()).orElse(null);
-//        assertThat(savedPharmacy).isNotNull();
         assertThat(savedPharmacy.getPharmacyName()).isEqualTo("Test Pharmacy");
     }
-
 
 }
