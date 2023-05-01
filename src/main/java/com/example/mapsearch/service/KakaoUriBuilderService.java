@@ -17,7 +17,9 @@ public class KakaoUriBuilderService {
         URI uri = UriComponentsBuilder
                 .fromHttpUrl(KAKAO_SEARCH_API_URL)
                 .queryParam("query", address)
-                .build().encode().toUri();
+                .build()
+                .encode()
+                .toUri();
 
         log.info("builder: {}", address, uri);
 
