@@ -34,6 +34,9 @@ public class KakaoAddressSearchService {
             backoff = @Backoff(delay = 2000) // 2초 간격으로 백오프
     )
     public KakaoApiResponse requestAddressSearch(String address) {
+        if(address == null || address.isEmpty()) {
+            throw new RuntimeException("address is empty");
+        }
 
         URI uri = kakaoUriBuilderService.buildUriByAddressSearch(address);
 

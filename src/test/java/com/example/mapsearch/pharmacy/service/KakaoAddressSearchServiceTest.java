@@ -44,7 +44,7 @@ class KakaoAddressSearchServiceTest {
 
     @Test
     @Deprecated
-    @DisplayName("서버 에러 발생 시 Retryable 이 잘 작동하는지 테스트")
+    @DisplayName("서버 에러 발생 시 Retry able 이 잘 작동하는지 테스트")
     void requestAddressSearch_retryOnServerError_shouldSucceedOnRetry() {
         // given
         String address = "서울시 강남구 역삼동";
@@ -81,6 +81,13 @@ class KakaoAddressSearchServiceTest {
 
         // 첫번째 요청은 실패했으므로 2번 호출되어야 함
         Mockito.verify(kakaoUriBuilderService, Mockito.times(2)).buildUriByAddressSearch(address);
+    }
+
+
+    @Test
+    @DisplayName("정상적인 주소를 입력했을 경우, 위도, 경도로 변환된다.")
+    void successSearch_x_y() {
+        // TODO : 테스트 코드 작성
     }
 
 }

@@ -2,10 +2,13 @@ package com.example.mapsearch.direction.service;
 
 import com.example.mapsearch.api.dto.Document;
 import com.example.mapsearch.direction.entity.Direction;
+import com.example.mapsearch.direction.repository.DirectionRepository;
 import com.example.mapsearch.pharmacy.dto.PharmacyDto;
 import com.example.mapsearch.pharmacy.service.PharmacySearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,8 +27,16 @@ public class DirectionService {
 
     private final PharmacySearchService pharmacySearchService;
 
+    private final DirectionRepository directionRepository;
+
+    @Transactional
+    public List<Direction> saveAll(List<Direction> directionList) {
+        if (CollectionUtils.isEmpty(directionList)) return Collections.EMPTY_LIST;
+        return directionRepository.saveAll(directionList);
+    }
+
     public List<Direction> buildDirectionList(Document documentDto) {
-        if(documentDto == null) return Collections.EMPTY_LIST;
+        if (documentDto == null) return Collections.EMPTY_LIST;
 
         final List<PharmacyDto> pharmacies = pharmacySearchService.searchPharmacyList();
 
