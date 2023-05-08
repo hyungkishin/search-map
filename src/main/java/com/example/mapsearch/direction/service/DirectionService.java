@@ -1,6 +1,7 @@
 package com.example.mapsearch.direction.service;
 
 import com.example.mapsearch.api.dto.Document;
+import com.example.mapsearch.api.service.KakaoCategorySearchService;
 import com.example.mapsearch.direction.entity.Direction;
 import com.example.mapsearch.direction.repository.DirectionRepository;
 import com.example.mapsearch.pharmacy.dto.PharmacyDto;
@@ -13,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,11 +25,13 @@ public class DirectionService {
     private static final int MAX_SEARCH_COUNT = 3;
 
     // 반경 10km 이내
-    private static final double MAX_KM = 10.0;
+    private static final double RADIUS_KM = 10.0;
 
     private final PharmacySearchService pharmacySearchService;
 
     private final DirectionRepository directionRepository;
+
+    private final KakaoCategorySearchService kakaoCategorySearchService;
 
     @Transactional
     public List<Direction> saveAll(List<Direction> directionList) {
@@ -53,7 +57,7 @@ public class DirectionService {
                                 calculateDistance(documentDto.getLatitude(), documentDto.getLongitude(), pharmacyDto.getLatitude(), pharmacyDto.getLongitude())
                         )
                         .build()) // 거리 계산
-                .filter(direction -> direction.getDistance() <= MAX_KM) // 반경 10km 이내
+                .filter(direction -> direction.getDistance() <= RADIUS_KM) // 반경 10km 이내
                 .sorted(Comparator.comparing(Direction::getDistance)) // 거리순으로 정렬
                 .limit(MAX_SEARCH_COUNT) // 최대 검색 갯수
                 .collect(Collectors.toList());
@@ -68,5 +72,32 @@ public class DirectionService {
         double earthRadius = 6371.01; // 지구의 반지름 (단위: km)
         double distance = earthRadius * Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2)); // 거리 계산 공식
         return distance;
+    }
+
+
+    // pharmacy search by category kakao api
+    public List<Direction> buildDirectionListByCategoryApi(Document inputDocument) {
+        if(Objects.isNull(inputDocument)) return Collections.emptyList();
+
+        return kakaoCategorySearchService
+                .requestPharmacyCategorySearch(
+                        inputDocument.getLatitude(),
+                        inputDocument.getLongitude(),
+                        RADIUS_KM
+                )
+                .getDocumentList()
+                .stream().map(resultDocument -> Direction.builder()
+                        .inputAddress(inputDocument.getAddressName())
+                        .inputLatitude(inputDocument.getLatitude())
+                        .inputLongitude(inputDocument.getLongitude())
+                        .targetPharmacyName(resultDocument.getPlaceName())
+                        .targetAddress(resultDocument.getAddressName())
+                        .targetLatitude(resultDocument.getLatitude())
+                        .targetLongitude(resultDocument.getLongitude())
+                        .distance(resultDocument.getDistance() * 0.001) // km 단위
+                        .build()
+                )
+                .limit(MAX_SEARCH_COUNT)
+                .collect(Collectors.toList());
     }
 }

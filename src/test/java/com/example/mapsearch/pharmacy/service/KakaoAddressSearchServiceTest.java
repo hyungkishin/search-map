@@ -2,6 +2,8 @@ package com.example.mapsearch.pharmacy.service;
 
 import com.example.mapsearch.api.dto.Document;
 import com.example.mapsearch.api.dto.KakaoApiResponse;
+import com.example.mapsearch.api.service.KakaoAddressSearchService;
+import com.example.mapsearch.api.service.KakaoUriBuilderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

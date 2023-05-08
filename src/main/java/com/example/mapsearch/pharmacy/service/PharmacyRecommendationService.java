@@ -2,6 +2,7 @@ package com.example.mapsearch.pharmacy.service;
 
 import com.example.mapsearch.api.dto.Document;
 import com.example.mapsearch.api.dto.KakaoApiResponse;
+import com.example.mapsearch.api.service.KakaoAddressSearchService;
 import com.example.mapsearch.direction.entity.Direction;
 import com.example.mapsearch.direction.service.DirectionService;
 import lombok.RequiredArgsConstructor;

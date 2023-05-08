@@ -1,4 +1,4 @@
-package com.example.mapsearch.pharmacy.service;
+package com.example.mapsearch.api.service;
 
 import com.example.mapsearch.api.dto.KakaoApiResponse;
 import lombok.RequiredArgsConstructor;

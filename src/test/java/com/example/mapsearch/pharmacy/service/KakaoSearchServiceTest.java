@@ -2,6 +2,7 @@ package com.example.mapsearch.pharmacy.service;
 
 import com.example.mapsearch.AbstractIntegrationContainerBaseTest;
 import com.example.mapsearch.api.dto.KakaoApiResponse;
+import com.example.mapsearch.api.service.KakaoAddressSearchService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
