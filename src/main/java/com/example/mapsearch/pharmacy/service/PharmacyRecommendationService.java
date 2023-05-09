@@ -30,7 +30,7 @@ public class PharmacyRecommendationService {
 
         final Document document = kakaoApiResponse.getDocumentList().get(0);
 
-        final List<Direction> directions = directionService.buildDirectionList(document);
+        final List<Direction> directions = directionService.buildDirectionListByCategoryApi(document);
 
         directionService.saveAll(directions);
 
