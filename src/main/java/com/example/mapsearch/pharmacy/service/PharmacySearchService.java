@@ -3,7 +3,6 @@ package com.example.mapsearch.pharmacy.service;
 
 import com.example.mapsearch.pharmacy.dto.PharmacyDto;
 import com.example.mapsearch.pharmacy.entity.Pharmacy;
-import com.example.mapsearch.pharmacy.repository.PharmacyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

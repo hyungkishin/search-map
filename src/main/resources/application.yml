@@ -19,7 +19,8 @@ spring:
 kakao:
   rest:
     api:
-      key: ${KAKAO-REST-API-KEY}
+      key: "88b2073ae586a8d628c80c6bc5d7f022"
+#      key: ${KAKAO-REST-API-KEY}
 
 # ...
 
@@ -37,8 +38,12 @@ spring:
     host: localhost
     port: 6379
   jpa:
+    properties:
+      hibernate:
+        id.new_generator_mappings: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
 
 ---

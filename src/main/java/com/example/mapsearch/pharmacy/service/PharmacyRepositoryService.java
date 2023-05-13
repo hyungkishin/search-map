@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Slf4j
-@Transactional(readOnly = true)
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class PharmacyRepositoryService {

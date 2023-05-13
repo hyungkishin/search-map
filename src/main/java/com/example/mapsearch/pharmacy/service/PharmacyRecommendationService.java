@@ -4,7 +4,7 @@ import com.example.mapsearch.api.dto.Document;
 import com.example.mapsearch.api.dto.KakaoApiResponse;
 import com.example.mapsearch.api.service.KakaoAddressSearchService;
 import com.example.mapsearch.direction.entity.Direction;
-import com.example.mapsearch.direction.response.DirectionRes;
+import com.example.mapsearch.pharmacy.controller.response.DirectionRes;
 import com.example.mapsearch.direction.service.DirectionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +25,6 @@ public class PharmacyRecommendationService {
 
     private final DirectionService directionService;
 
-    private static final String ROAD_VIEW_BASE_URL = "https://map.kakao.com/link/roadview/";
-
-    private static final String DIRECTION_VIEW_BASE_URL = "https://map.kakao.com/link/roadview/";
-
     /**
      * 고객의 주소를 받아서 공공기관 약국 데이터를 이용하여 가장 가까운 약국을 추천해주는 서비스
      * @param address
@@ -48,13 +44,13 @@ public class PharmacyRecommendationService {
                 .get(0);
 
         // 공공기관 약국 데이터 및 거리계산 알고리즘 이용
-        // List<Direction> directionList = directionService.buildDirectionList(document);
+         List<Direction> directionList = directionService.buildDirectionList(document);
 
         // kakao 카테고리를 이용한 장소 검색 api 허용
-        final List<Direction> directions = directionService.buildDirectionListByCategoryApi(document);
+//        final List<Direction> directionList = directionService.buildDirectionListByCategoryApi(document);
 
         return directionService
-                .saveAll(directions)
+                .saveAll(directionList)
                 .stream()
                 .map(DirectionRes::of)
                 .collect(Collectors.toList());
