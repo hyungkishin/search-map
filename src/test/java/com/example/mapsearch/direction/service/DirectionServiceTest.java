@@ -2,12 +2,15 @@ package com.example.mapsearch.direction.service;
 
 import com.example.mapsearch.AbstractIntegrationContainerBaseTest;
 import com.example.mapsearch.pharmacy.dto.PharmacyDto;
+import com.example.mapsearch.pharmacy.service.PharmacySearchService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class DirectionServiceTest extends AbstractIntegrationContainerBaseTest {
 

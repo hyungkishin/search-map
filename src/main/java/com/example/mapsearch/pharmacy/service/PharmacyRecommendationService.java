@@ -6,13 +6,9 @@ import com.example.mapsearch.api.service.KakaoAddressSearchService;
 import com.example.mapsearch.direction.entity.Direction;
 import com.example.mapsearch.direction.response.DirectionRes;
 import com.example.mapsearch.direction.service.DirectionService;
-import com.example.mapsearch.pharmacy.dto.PharmacyDto;
-import com.example.mapsearch.pharmacy.entity.Pharmacy;
-import com.example.mapsearch.pharmacy.repository.PharmacyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
@@ -21,12 +17,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
-public class PharmacyService {
-
-    private final PharmacyRepository pharmacyRepository;
+public class PharmacyRecommendationService {
 
     private final KakaoAddressSearchService kakaoAddressSearchService;
 
@@ -39,7 +32,7 @@ public class PharmacyService {
     /**
      * 고객의 주소를 받아서 공공기관 약국 데이터를 이용하여 가장 가까운 약국을 추천해주는 서비스
      * @param address
-     * @return List<DirectionRes>
+     * @return
      */
     public List<DirectionRes> recommendPharmacy(String address) {
 
@@ -67,11 +60,4 @@ public class PharmacyService {
                 .collect(Collectors.toList());
     }
 
-    public List<PharmacyDto> searchPharmacyList() {
-        final List<Pharmacy> pharmacyList = pharmacyRepository.findAll();
-
-        return pharmacyList.stream()
-                .map(PharmacyDto::of)
-                .collect(Collectors.toList());
-    }
 }

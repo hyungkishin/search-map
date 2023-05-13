@@ -5,7 +5,7 @@ import com.example.mapsearch.api.service.KakaoCategorySearchService;
 import com.example.mapsearch.direction.entity.Direction;
 import com.example.mapsearch.direction.repository.DirectionRepository;
 import com.example.mapsearch.pharmacy.dto.PharmacyDto;
-import com.example.mapsearch.pharmacy.service.PharmacyService;
+import com.example.mapsearch.pharmacy.service.PharmacySearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,7 @@ public class DirectionService {
     // 반경 10km 이내
     private static final double RADIUS_KM = 10.0;
 
-    private final PharmacyService pharmacyService;
+    private final PharmacySearchService pharmacySearchService;
 
     private final DirectionRepository directionRepository;
 
@@ -42,7 +42,7 @@ public class DirectionService {
     public List<Direction> buildDirectionList(Document documentDto) {
         if (documentDto == null) return Collections.EMPTY_LIST;
 
-        final List<PharmacyDto> pharmacies = pharmacyService.searchPharmacyList();
+        final List<PharmacyDto> pharmacies = pharmacySearchService.searchPharmacyList();
 
         return pharmacies.stream()
                 .map(pharmacyDto -> Direction.builder()
