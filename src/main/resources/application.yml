@@ -46,6 +46,11 @@ spring:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
 
+map:
+  recommendation:
+    base:
+      url: http://localhost:8080/dir/
+
 ---
 
 spring:

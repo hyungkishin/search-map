@@ -4,7 +4,6 @@ import com.example.mapsearch.api.dto.Document;
 import com.example.mapsearch.api.service.KakaoCategorySearchService;
 import com.example.mapsearch.direction.entity.Direction;
 import com.example.mapsearch.direction.repository.DirectionRepository;
-import com.example.mapsearch.pharmacy.dto.PharmacyDto;
 import com.example.mapsearch.pharmacy.service.PharmacySearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +34,19 @@ public class DirectionService {
 
     private final KakaoCategorySearchService kakaoCategorySearchService;
 
+    private final Base62Service base62Service;
+
     @Transactional
     public List<Direction> saveAll(List<Direction> directionList) {
         if (CollectionUtils.isEmpty(directionList)) return Collections.emptyList();
         return directionRepository.saveAll(directionList);
+    }
+
+    public Direction findById(String encodedId) {
+        final Long decodedId = base62Service.decodeDirectionId(encodedId);
+
+        return directionRepository.findById(decodedId)
+                .orElseThrow(() -> new IllegalArgumentException("Direction not found"));
     }
 
     public List<Direction> buildDirectionList(Document documentDto) {

@@ -4,10 +4,12 @@ import com.example.mapsearch.api.dto.Document;
 import com.example.mapsearch.api.dto.KakaoApiResponse;
 import com.example.mapsearch.api.service.KakaoAddressSearchService;
 import com.example.mapsearch.direction.entity.Direction;
+import com.example.mapsearch.direction.service.Base62Service;
 import com.example.mapsearch.pharmacy.controller.response.DirectionRes;
 import com.example.mapsearch.direction.service.DirectionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -24,6 +26,11 @@ public class PharmacyRecommendationService {
     private final KakaoAddressSearchService kakaoAddressSearchService;
 
     private final DirectionService directionService;
+
+    private final Base62Service base62Service;
+
+    @Value("${map.recommendation.base.url}")
+    private String baseUrl;
 
     /**
      * 고객의 주소를 받아서 공공기관 약국 데이터를 이용하여 가장 가까운 약국을 추천해주는 서비스
@@ -52,7 +59,7 @@ public class PharmacyRecommendationService {
         return directionService
                 .saveAll(directionList)
                 .stream()
-                .map(DirectionRes::of)
+                .map(direction -> DirectionRes.of(direction, baseUrl, base62Service))
                 .collect(Collectors.toList());
     }
 

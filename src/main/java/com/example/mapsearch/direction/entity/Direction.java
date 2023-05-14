@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import static com.example.mapsearch.common.constants.URL.KakaoUrl.DIRECTION_VIEW_BASE_URL;
+import static com.example.mapsearch.common.constants.URL.KakaoUrl.DIRECTION_BASE_URL;
 import static com.example.mapsearch.common.constants.URL.KakaoUrl.ROAD_VIEW_BASE_URL;
 
 @Entity
@@ -48,7 +48,7 @@ public class Direction extends BaseTimeEntity {
     }
 
     public String distanceUrlParam() {
-        return DIRECTION_VIEW_BASE_URL + String.join(","
+        return DIRECTION_BASE_URL + String.join(","
                 , targetPharmacyName
                 , String.valueOf(targetLatitude)
                 , String.valueOf(targetLongitude)
