@@ -99,4 +99,5 @@ public class DirectionService {
                 .limit(MAX_SEARCH_COUNT)
                 .collect(Collectors.toList());
     }
+
 }

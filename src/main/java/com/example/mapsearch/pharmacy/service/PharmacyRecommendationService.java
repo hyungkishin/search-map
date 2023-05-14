@@ -44,10 +44,10 @@ public class PharmacyRecommendationService {
                 .get(0);
 
         // 공공기관 약국 데이터 및 거리계산 알고리즘 이용
-         List<Direction> directionList = directionService.buildDirectionList(document);
+//         List<Direction> directionList = directionService.buildDirectionList(document);
 
         // kakao 카테고리를 이용한 장소 검색 api 허용
-//        final List<Direction> directionList = directionService.buildDirectionListByCategoryApi(document);
+        final List<Direction> directionList = directionService.buildDirectionListByCategoryApi(document);
 
         return directionService
                 .saveAll(directionList)
