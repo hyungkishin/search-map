@@ -1,6 +1,5 @@
 package com.example.mapsearch.direction.controller;
 
-import com.example.mapsearch.direction.entity.Direction;
 import com.example.mapsearch.direction.service.DirectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,10 +17,10 @@ public class DirectionController {
 
     @GetMapping("/dir/{encodedId}")
     public String searchDirection(@PathVariable("encodedId") String encodedId) {
-        final Direction byId = directionService.findById(encodedId);
+        final String byId = directionService.findDirectionUrlById(encodedId);
 
         return UriComponentsBuilder
-                .fromHttpUrl(DIRECTION_BASE_URL + byId.distanceUrlParam())
+                .fromHttpUrl(DIRECTION_BASE_URL + byId)
                 .toUriString();
     }
 

@@ -30,7 +30,7 @@ public class DirectionRes {
                 .fromHttpUrl(directions.distanceUrlParam())
                 .toUriString();
 
-        String encodedId = uriString + baseUrl + base62Service.encodeDirectionId(directions.getId());
+//        String encodedId = uriString + baseUrl + base62Service.encodeDirectionId(directions.getId());
         log.info("direction url: {}", directions.distanceUrlParam());
         log.info("direction params : {}", directions.roadViewUrl());
 

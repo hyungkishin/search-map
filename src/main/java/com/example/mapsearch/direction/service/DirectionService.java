@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,11 +43,12 @@ public class DirectionService {
         return directionRepository.saveAll(directionList);
     }
 
-    public Direction findById(String encodedId) {
+    public String findDirectionUrlById(String encodedId) {
         final Long decodedId = base62Service.decodeDirectionId(encodedId);
 
-        return directionRepository.findById(decodedId)
-                .orElseThrow(() -> new IllegalArgumentException("Direction not found"));
+        final Direction direction = directionRepository.findById(decodedId).orElse(null);
+
+        return UriComponentsBuilder.fromHttpUrl(direction.distanceUrlParam()).toUriString();
     }
 
     public List<Direction> buildDirectionList(Document documentDto) {
