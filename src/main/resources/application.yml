@@ -19,8 +19,7 @@ spring:
 kakao:
   rest:
     api:
-      key: "88b2073ae586a8d628c80c6bc5d7f022"
-#      key: ${KAKAO-REST-API-KEY}
+      key: ${KAKAO-REST-API-KEY}
 
 # ...
 
